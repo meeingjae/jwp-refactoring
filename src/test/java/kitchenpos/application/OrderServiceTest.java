@@ -24,6 +24,7 @@ import static kitchenpos.application.MenuProductTest.메뉴_상품;
 import static kitchenpos.application.MenuServiceTest.메뉴;
 import static kitchenpos.application.TableServiceTest.두_명의_방문객;
 import static kitchenpos.application.TableServiceTest.비어있지_않은_상태;
+import static kitchenpos.application.TableServiceTest.빈_상태;
 import static kitchenpos.application.TableServiceTest.주문_테이블;
 import static kitchenpos.application.ProductTest.상품;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -151,9 +152,9 @@ public class OrderServiceTest {
         assertThatIllegalArgumentException().isThrownBy(() -> orderService.create(주문));
     }
 
-    @DisplayName("생성 예외 - 주문 테이블이 빈 테이블이 아닐 경우")
+    @DisplayName("생성 예외 - 주문 테이블이 빈 테이블일 경우")
     @Test
-    void 생성_예외_주문_테이블이_빈_테이블이_아닌_경우() {
+    void 생성_예외_주문_테이블이_빈_테이블일_경우() {
         //given:
         final Menu 저장된_메뉴 = menuService.create(
                 메뉴("자메이카 통다리 1인 세트",
@@ -164,7 +165,7 @@ public class OrderServiceTest {
                                 메뉴_상품(productDao.save(상품("콜라", BigDecimal.ONE)).getId(), 1))));
 
         final Order 주문 = 주문(
-                orderTableDao.save(주문_테이블(두_명의_방문객, 비어있지_않은_상태)).getId(),
+                orderTableDao.save(주문_테이블(두_명의_방문객, 빈_상태)).getId(),
                 OrderStatus.COOKING.name(),
                 LocalDateTime.now(),
                 Arrays.asList(new OrderLineItem(저장된_메뉴.getId(), 1L)));
