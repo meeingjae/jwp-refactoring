@@ -43,6 +43,7 @@ subprojects {
         runtimeOnly 'com.h2database:h2'
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
         testImplementation 'io.rest-assured:rest-assured'
+        testImplementation 'com.tngtech.archunit:archunit:1.0.1'
     }
 
     test {
